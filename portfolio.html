@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio de Zineb</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .page {
+            display: none;
+            padding: 100px 0 50px;
+            min-height: 100vh;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        #accueil {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .hero {
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #72A1B4;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #00B6DA;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .project-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .project-image {
+            height: 200px;
+            background-color: #3498db;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .project-info {
+            padding: 1.5rem;
+        }
+        
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .skill-category {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .skill-category h3 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+        
+        .skill-list {
+            list-style: none;
+        }
+        
+        .skill-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .skill-list li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #3498db;
+        }
+        
+        .contact-container {
+            display: flex;
+            gap: 3rem;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-form {
+            flex: 1;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: #2c3e50;
+                display: none;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 1rem;
+            }
+            
+            .menu-toggle {
+                display: block;
+                cursor: pointer;
+                font-size: 1.5rem;
+            }
+            
+            .about-content,
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        .menu-toggle {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Zineb-Esskhairi</div>
+                <div class="menu-toggle">☰</div>
+                <ul class="nav-links">
+                    <li><a href="#" data-page="accueil" class="active">Accueil</a></li>
+                    <li><a href="#" data-page="apropos">À propos</a></li>
+                    <li><a href="#" data-page="projets">Projets</a></li>
+                    <li><a href="#" data-page="competences">Compétences</a></li>
+                    <li><a href="#" data-page="contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="accueil" class="page active">
+            <div class="container">
+                <div class="hero">
+                    <h1>Bienvenue sur mon Portfolio</h1>
+                    <p>Je suis Zineb, développeuse passionnée et créative.</p>
+                    <a href="#" class="btn" data-page="apropos">Découvrir mon travail</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="apropos" class="page">
+            <div class="container">
+                <h2>À propos de moi</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Je suis une développeuse avec 2 années d'expérience, spécialisée dans le développement web et les applications mobiles.</p>
+                        <p>Passionnée par la création d'expériences utilisateur exceptionnelles, je m'efforce de combiner design et fonctionnalité dans chaque projet que j'entreprends.</p>
+                        <p>En dehors du développement, j'aime explorer de nouvelles technologies, participer à des hackathons et contribuer à des projets open source.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src ="https://ibb.co/pjDkfN7G.jpg" alt="Photo de Zineb">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projets" class="page">
+            <div class="container">
+                <h2>Mes Projets</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image" style="background-color: #00B6DA;">
+                            Site E-commerce
+                        </div>
+                        <div class="project-info">
+                            <h3>Site Web d'e-commerce - Volt</h3>
+                            <p>Plateforme complète de vente en ligne avec système de paiement intégré et gestion d'inventaire.</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image" style="background-color: #0078B8;">
+                            Application Mobile
+                        </div>
+                        <div class="project-info">
+                            <h3>Application mobile de suivi - Volt</h3>
+                            <p>Application de suivi d'activités avec synchronisation cloud et tableaux de bord personnalisés.</p>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image" style="background-color: #03045F;">
+                            Blog Personnel
+                        </div>
+                        <div class="project-info">
+                            <h3>Blog personnel - Volt</h3>
+                            <p>Plateforme de blog moderne avec système de commentaires et interface d'administration intuitive.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="competences" class="page">
+            <div class="container">
+                <h2>Mes Compétences</h2>
+                <div class="skills-container">
+                    <div class="skill-category">
+                        <h3>Frontend</h3>
+                        <ul class="skill-list">
+                            <li>HTML5</li>
+                            <li>CSS3</li>
+                            <li>JavaScript (ES6+)</li>
+                            <li>React</li>
+                            <li>Angular</li>
+                            <li>Responsive Design</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Backend</h3>
+                        <ul class="skill-list">
+                            <li>Python</li>
+                            <li>Django</li>
+                            <li>Node.js</li>
+                            <li>API REST</li>
+                            <li>Base de données SQL/NoSQL</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Outils & Méthodologies</h3>
+                        <ul class="skill-list">
+                            <li>Git & GitHub</li>
+                            <li>Agile/Scrum</li>
+                            <li>UI/UX Design</li>
+                            <li>Tests unitaires</li>
+                            <li>Déploiement</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="page">
+            <div class="container">
+                <h2>Contactez-moi</h2>
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <p>N'hésitez pas à me contacter pour discuter de vos projets ou pour toute question.</p>
+                        <p><strong>Email:</strong> zinebesskhairi@gmail.com</p>
+                        <p><strong>Téléphone:</strong> +212 773 14 89 67</p>
+                        <p><strong>Adresse:</strong> Casablanca,Maroc</p>
+                    </div>
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Nom</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Sujet</label>
+                                <input type="text" id="subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn">Envoyer le message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Zineb-Esskhairi - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-links a, .btn[data-page]');
+            const pages = document.querySelectorAll('.page');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinksContainer = document.querySelector('.nav-links');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    navLinksContainer.classList.toggle('active');
+                });
+            }
+            
+            function showPage(pageId) {
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                }
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-page') === pageId) {
+                        link.classList.add('active');
+                    }
+                });
+                
+                if (window.innerWidth <= 768) {
+                    navLinksContainer.classList.remove('active');
+                }
+                
+                window.scrollTo(0, 0);
+            }
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    if (pageId) {
+                        showPage(pageId);
+                    }
+                });
+            });
+            
+            showPage('accueil');
+            
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Merci pour votre message! Je vous répondrai dès que possible.');
+                    contactForm.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
